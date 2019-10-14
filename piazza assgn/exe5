@@ -1,0 +1,185 @@
+
+mysql> CREATE TABLE plane(
+    -> f_no INT,
+    -> from_here VARCHAR(20),
+    -> to_there VARCHAR(20),
+    -> distance BIGINT,
+    -> departs TIME,
+    -> arrives TIME,
+    -> price BIGINT,
+    -> aid INT,
+    -> PRIMARY KEY(f_no));
+
+mysql> desc plane;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| f_no      | int(11)     | NO   | PRI | NULL    |       |
+| from_here | varchar(20) | YES  |     | NULL    |       |
+| to_there  | varchar(20) | YES  |     | NULL    |       |
+| distance  | bigint(20)  | YES  |     | NULL    |       |
+| departs   | time        | YES  |     | NULL    |       |
+| arrives   | time        | YES  |     | NULL    |       |
+| price     | bigint(20)  | YES  |     | NULL    |       |
+| aid       | int(11)     | YES  | MUL | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+
+mysql> CREATE TABLE aircraft(
+    -> aid INT PRIMARY KEY,
+    -> aname VARCHAR(20),
+    -> c_range BIGINT);
+Query OK, 0 rows affected (0.25 sec)
+
+
+mysql> desc aircraft;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| aid     | int(11)     | NO   | PRI | NULL    |       |
+| aname   | varchar(20) | YES  |     | NULL    |       |
+| c_range | bigint(20)  | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+mysql> ALTER TABLE plane 
+    -> ADD FOREIGN KEY(aid) REFERENCES aircraft(aid);
+Query OK, 0 rows affected (0.94 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE employee( e_id INT, ename VARCHAR(20), salary BIGINT, PRIMARY KEY (e_id));
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> ALTER TABLE certified
+    -> ADD FOREIGN KEY(e_id) REFERENCES employee(e_id);
+Query OK, 0 rows affected (0.79 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc certified;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| e_id  | int(11) | NO   | PRI | NULL    |       |
+| a_id  | int(11) | NO   | PRI | NULL    |       |
++-------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+==========================================================================AIRCRAFT==================================
+
+mysql> SELECT *
+    -> FROM aircraft;
++-----+--------------+---------+
+| aid | aname        | c_range |
++-----+--------------+---------+
+|   1 | Wright Flyer |      40 |
+|   2 | Boeing 787   |      50 |
+|   3 | Cirrus SR22  |      89 |
+|   4 | Learjet 23   |      45 |
+|   5 | Lockheed     |      78 |
+|   6 | Douglas      |      99 |
++-----+--------------+---------+
+6 rows in set (0.00 sec)
+
+
+========================================================================PLANE======================================
+mysql> SELECT *
+    -> FROM plane;
++------+-----------+----------+----------+----------+----------+-------+------+
+| f_no | from_here | to_there | distance | departs  | arrives  | price | aid  |
++------+-----------+----------+----------+----------+----------+-------+------+
+|  121 | Mumbai    | Nagpur   |     1000 | 08:00:00 | 11:00:00 |  8000 |    2 |
+|  221 | Pune      | Mumbai   |      600 | 06:34:00 | 08:24:00 |  3000 |    4 |
+|  777 | Chennai   | Nagpur   |      700 | 07:00:00 | 11:34:00 |  9000 |    1 |
+|  977 | Bengaluru | Kashmir  |     1200 | 10:34:00 | 16:56:00 | 10000 |    5 |
+|  983 | Delhi     | Mumbai   |      950 | 08:34:00 | 10:24:00 |  7000 |    3 |
++------+-----------+----------+----------+----------+----------+-------+------+
+5 rows in set (0.00 sec)
+
+======================================================================Employees===================================
+mysql> SELECT *
+    -> FROM employee;
++------+----------+--------+
+| e_id | ename    | salary |
++------+----------+--------+
+|    1 | Ram      | 200000 |
+|    9 | Aryan    | 350000 |
+|   12 | Sham     | 300000 |
+|   20 | Amey     | 120000 |
+|   21 | Manish   | 140000 |
+|   31 | Rakesh   | 240000 |
+|   45 | Iyer     |   9000 |
+|   49 | Jethalal |   6000 |
+|   78 | Akash    | 450000 |
+|   79 | Tarak    |   4000 |
++------+----------+--------+
+10 rows in set (0.00 sec)
+
+=====================================================================CERTIFIED====================================
+mysql> SELECT *
+    -> FROM certified;
++------+------+
+| e_id | a_id |
++------+------+
+|    1 |    1 |
+|   12 |    1 |
+|   31 |    1 |
+|    9 |    2 |
+|   21 |    2 |
+|   78 |    2 |
+|    9 |    3 |
+|   31 |    3 |
+|   78 |    3 |
+|    9 |    4 |
+|   21 |    4 |
+|   78 |    4 |
+|    1 |    5 |
+|    9 |    5 |
+|   21 |    5 |
+|    1 |    6 |
+|   12 |    6 |
+|   31 |    6 |
++------+------+
+18 rows in set (0.00 sec)
+
+
+=====================================================================1=========================================
+
+mysql> SELECT e.ename FROM employee as e WHERE e.salary>320000 AND e.e_id IN (SELECT c.e_id FROM certified as c);
++-------+
+| ename |
++-------+
+| Aryan |
+| Akash |
++-------+
+2 rows in set (0.00 sec)
+
+========================================================================2=======================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

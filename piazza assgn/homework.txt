@@ -1,0 +1,469 @@
+mysql> use manage
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_manage |
++------------------+
+| customer         |
+| gives_order      |
+| order_table      |
+| product          |
++------------------+
+4 rows in set (0.00 sec)
+
+
+mysql> INSERT INTO customer
+    -> VALUES (1,'Mohak','near pict ,trimurti chowk ,Pune');
+Query OK, 1 row affected (0.37 sec)
+
+mysql> INSERT INTO customer
+    -> VALUES
+    -> (2,'James','near bombay station ,Mumbai'),
+    -> (3,'Henry','near airport ,Nagpur'),
+    -> (4,'Harry' ,'near IIT bombay,Mumbai'),
+    -> (5,'Tom','Nilgiri chowk ,Pune');
+Query OK, 4 rows affected (0.21 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * from customer;
++---------+-------+---------------------------------+
+| cust_id | name  | addr                            |
++---------+-------+---------------------------------+
+|       1 | Mohak | near pict ,trimurti chowk ,Pune |
+|       2 | James | near bombay station ,Mumbai     |
+|       3 | Henry | near airport ,Nagpur            |
+|       4 | Harry | near IIT bombay,Mumbai          |
+|       5 | Tom   | Nilgiri chowk ,Pune             |
+|       6 | Tony  | trimurti chowk,pune             |
++---------+-------+---------------------------------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE product DROP FOREIGN KEY product_ibfk_1;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc product;
++------------+---------+------+-----+---------+-------+
+| Field      | Type    | Null | Key | Default | Extra |
++------------+---------+------+-----+---------+-------+
+| pro_id     | int(11) | NO   | PRI | NULL    |       |
+| no_of_pro  | int(11) | YES  |     | NULL    |       |
+| ordered_by | int(11) | YES  | MUL | NULL    |       |
++------------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE product
+    -> DROP COLUMN ordered_by;
+Query OK, 0 rows affected (0.55 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc product;
++-----------+---------+------+-----+---------+-------+
+| Field     | Type    | Null | Key | Default | Extra |
++-----------+---------+------+-----+---------+-------+
+| pro_id    | int(11) | NO   | PRI | NULL    |       |
+| no_of_pro | int(11) | YES  |     | NULL    |       |
++-----------+---------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO product VALUES
+    -> (12,2),(120,4),(1,9),(6,8),(34,9);
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT *
+    -> FROM product;
++--------+-----------+-------+
+| pro_id | no_of_pro | price |
++--------+-----------+-------+
+|      1 |         9 |  1000 |
+|      6 |         8 |   500 |
+|     12 |         2 |   100 |
+|     34 |         9 |   150 |
+|    120 |         4 |  1500 |
++--------+-----------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> show tables;
++------------------+
+| Tables_in_manage |
++------------------+
+| customer         |
+| gives_order      |
+| order_table      |
+| product          |
++------------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO gives_order VALUES (1,6,'2019-12-12'),(2,12,'2019-02-02'),(3,120,'2019-03-20'),(1,120,'2019-12-12');
+Query OK, 4 rows affected (0.07 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT *
+    -> FROM gives_order;
++---------+------------+------------+
+| cust_id | product_id | d          |
++---------+------------+------------+
+|       1 |          6 | 2019-12-12 |
+|       1 |        120 | 2019-12-12 |
+|       2 |         12 | 2019-02-02 |
+|       2 |        120 | 2013-11-09 |
+|       3 |        120 | 2019-03-20 |
+|       4 |         34 | 2012-11-01 |
+|       5 |         34 | 2013-11-01 |
++---------+------------+------------+
+7 rows in set (0.00 sec)
+
+
+
+mysql> desc order_table;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| order_id   | int(11)     | NO   | PRI | NULL    |       |
+| del_add    | varchar(40) | YES  |     | NULL    |       |
+| ordered_by | int(11)     | YES  | MUL | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> INSERT INTO order_table
+    -> VALUES
+    -> (12000,    -> (12000,'near pict ,trimurti chowk ,Pune',1)
+    -> ;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select *
+    -> from order_table
+    -> ;
++----------+---------------------------------+------------+
+| order_id | del_add                         | ordered_by |
++----------+---------------------------------+------------+
+|    12000 | near pict ,trimurti chowk ,Pune |          1 |
++----------+---------------------------------+------------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO order_table
+    -> VALUES
+    -> (1121,'near bombay station ,Mumbai',2);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO order_table VALUES (1001,'Nilgiri chowk,Pune',5);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select *
+    -> from order_table;
++----------+---------------------------------+------------+
+| order_id | del_add                         | ordered_by |
++----------+---------------------------------+------------+
+|     1001 | Nilgiri chowk,Pune              |          5 |
+|     1121 | near bombay station ,Mumbai     |          2 |
+|    12000 | near pict ,trimurti chowk ,Pune |          1 |
++----------+---------------------------------+------------+
+3 rows in set (0.00 sec)
+
+
+****************************************************************ANS FOR 1st***********************************************************
+
+mysql> SELECT *
+    -> FROM gives_order
+    -> WHERE cust_id = 1;
++---------+------------+------------+
+| cust_id | product_id | d          |
++---------+------------+------------+
+|       1 |          6 | 2019-12-12 |
+|       1 |        120 | 2019-12-12 |
++---------+------------+------------+
+2 rows in set (0.01 sec)
+
+****************************************************************ANS FOR 2nd***********************************************************
+
+mysql> SELECT *
+    -> FROM customer as c,order_table as o
+    -> WHERE c.cust_id = o.ordered_by;
++---------+-------+---------------------------------+----------+---------------------------------+------------+
+| cust_id | name  | addr                            | order_id | del_add                         | ordered_by |
++---------+-------+---------------------------------+----------+---------------------------------+------------+
+|       5 | Tom   | Nilgiri chowk ,Pune             |     1001 | Nilgiri chowk,Pune              |          5 |
+|       2 | James | near bombay station ,Mumbai     |     1121 | near bombay station ,Mumbai     |          2 |
+|       1 | Mohak | near pict ,trimurti chowk ,Pune |    12000 | near pict ,trimurti chowk ,Pune |          1 |
++---------+-------+---------------------------------+----------+---------------------------------+------------+
+3 rows in set (0.00 sec)
+
+
+****************************************************************ANS FOR 3rd***********************************************************
+
+mysql> SELECT *
+    -> FROM customer
+    -> WHERE name LIKE 'MOH%';
++---------+-------+---------------------------------+
+| cust_id | name  | addr                            |
++---------+-------+---------------------------------+
+|       1 | Mohak | near pict ,trimurti chowk ,Pune |
++---------+-------+---------------------------------+
+1 row in set (0.00 sec)
+
+
+
+****************************************************************ANS FOR 4th***********************************************************
+
+mysql> select *
+    -> from gives_order
+    -> WHERE cust_id = 2 AND d='2019-02-02';
++---------+------------+------------+
+| cust_id | product_id | d          |
++---------+------------+------------+
+|       2 |         12 | 2019-02-02 |
++---------+------------+------------+
+1 row in set (0.00 sec)
+
+
+
+****************************************************************ANS FOR 5th***********************************************************
+
+
+mysql> SELECT c.name,SUM(p.price)
+    -> FROM gives_order as g,product as p,customer as c
+    -> WHERE g.product_id = pro_id AND g.cust_id = c.cust_id
+    -> GROUP BY c.name;
++-------+--------------+
+| name  | SUM(p.price) |
++-------+--------------+
+| Henry |         1500 |
+| James |          100 |
+| Mohak |         2000 |
++-------+--------------+
+3 rows in set (0.00 sec)
+
+
+
+
+****************************************************************ANS FOR 6th***********************************************************
+
+mysql> SELECT count(*)
+    -> FROM customer;
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.00 sec)
+
+****************************************************************ANS FOR 7th***********************************************************
+
+
+mysql> SELECT c.name,SUM(p.price) FROM gives_order as g,product as p,customer as c WHERE g.product_id = p.pro_id AND g.cust_id = c.cust_id GROUP BY c.name 
+    -> order by sum(p.price) desc;
++-------+--------------+
+| name  | SUM(p.price) |
++-------+--------------+
+| Mohak |         2000 |
+| Henry |         1500 |
+| James |          100 |
++-------+--------------+
+3 rows in set (0.01 sec)
+
+****************************************************************ANS FOR 8th***********************************************************
+
+mysql> SELECT c.name,SUM(p.price) FROM gives_order as g,product as p,customer as c WHERE g.product_id = p.pro_id AND g.cust_id = c.cust_id GROUP BY c.name  order by sum(p.price) desc LIMIT 1;
++-------+--------------+
+| name  | SUM(p.price) |
++-------+--------------+
+| Mohak |         2000 |
++-------+--------------+
+1 row in set (0.00 sec)
+
+
+****************************************************************ANS FOR 9th***********************************************************
+
+mysql> SELECT cust_id,DAYNAME(d) FROM gives_order;
++---------+------------+
+| cust_id | DAYNAME(d) |
++---------+------------+
+|       1 | Thursday   |
+|       1 | Thursday   |
+|       2 | Saturday   |
+|       3 | Wednesday  |
++---------+------------+
+4 rows in set (0.00 sec)
+
+****************************************************************ANS FOR 10th***********************************************************
+
+
+mysql> SELECT cust_id,MONTHNAME(d)
+    -> FROM gives_order;
++---------+--------------+
+| cust_id | MONTHNAME(d) |
++---------+--------------+
+|       1 | December     |
+|       1 | December     |
+|       2 | February     |
+|       3 | March        |
++---------+--------------+
+4 rows in set (0.00 sec)
+
+
+
+****************************************************************ANS FOR 11th***********************************************************
+
+mysql> SELECT year(d),cust_id
+    -> FROM gives_order;
++---------+---------+
+| year(d) | cust_id |
++---------+---------+
+|    2019 |       1 |
+|    2019 |       1 |
+|    2019 |       2 |
+|    2019 |       3 |
++---------+---------+
+4 rows in set (0.01 sec)
+
+
+****************************************************************ANS FOR 12th***********************************************************
+
+
+mysql> SELECT CURRENT_DATE;
++--------------+
+| CURRENT_DATE |
++--------------+
+| 2019-07-22   |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURRENT_TIME;
++--------------+
+| CURRENT_TIME |
++--------------+
+| 15:32:43     |
++--------------+
+1 row in set (0.00 sec)
+
+
+
+****************************************************************ANS FOR 13th***********************************************************
+
+mysql> SELECT sum(p.price) FROM gives_order as g , product as p,customer as c WHERE g.product_id = p.pro_id AND g.cust_id = c.cust_id;
++--------------+
+| sum(p.price) |
++--------------+
+|         3600 |
++--------------+
+1 row in set (0.00 sec)
+
+
+****************************************************************ANS FOR 14th***********************************************************
+
+mysql> SELECT * FROM product WHERE no_of_pro in (4,9);
++--------+-----------+-------+
+| pro_id | no_of_pro | price |
++--------+-----------+-------+
+|      1 |         9 |  1000 |
+|     34 |         9 |   150 |
+|    120 |         4 |  1500 |
++--------+-----------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM product WHERE no_of_pro not in (4,9);
++--------+-----------+-------+
+| pro_id | no_of_pro | price |
++--------+-----------+-------+
+|      6 |         8 |   500 |
+|     12 |         2 |   100 |
++--------+-----------+-------+
+2 rows in set (0.00 sec)
+
+
+
+****************************************************************ANS FOR 15th***********************************************************
+
+mysql> SELECT *
+    -> FROM gives_order
+    -> WHERE product_id =1
+    -> UNION
+    -> SELECT *
+    -> FROM gives_order
+    -> WHERE product_id = 120
+    -> UNION 
+    -> select *
+    -> from gives_order
+    -> WHERE product_id = 2;
++---------+------------+------------+
+| cust_id | product_id | d          |
++---------+------------+------------+
+|       1 |        120 | 2019-12-12 |
+|       3 |        120 | 2019-03-20 |
++---------+------------+------------+
+2 rows in set (0.01 sec)
+
+
+****************************************************************ANS FOR 17th***********************************************************
+
+mysql> SELECT p.pro_id
+    -> FROM product as p,product as s
+    -> WHERE p.price > s.price;
++--------+
+| pro_id |
++--------+
+|    120 |
+|      1 |
+|    120 |
+|      1 |
+|      6 |
+|     34 |
+|    120 |
+|      1 |
+|      6 |
+|    120 |
++--------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT p.pro_id FROM product as p,product as s WHERE p.price > s.price AND s.pro_id = 120;
+Empty set (0.00 sec)
+
+mysql> SELECT p.pro_id FROM product as p,product as s WHERE p.price > s.price AND s.pro_id = 1;
++--------+
+| pro_id |
++--------+
+|    120 |
++--------+
+1 row in set (0.00 sec)
+
+
+
+****************************************************************ANS FOR 18th***********************************************************
+mysql> SELECT * FROM customer INNER JOIN gives_order ON customer.cust_id = gives_order.cust_id;
++---------+-------+---------------------------------+---------+------------+------------+
+| cust_id | name  | addr                            | cust_id | product_id | d          |
++---------+-------+---------------------------------+---------+------------+------------+
+|       1 | Mohak | near pict ,trimurti chowk ,Pune |       1 |          6 | 2019-12-12 |
+|       1 | Mohak | near pict ,trimurti chowk ,Pune |       1 |        120 | 2019-12-12 |
+|       2 | James | near bombay station ,Mumbai     |       2 |         12 | 2019-02-02 |
+|       2 | James | near bombay station ,Mumbai     |       2 |        120 | 2013-11-09 |
+|       3 | Henry | near airport ,Nagpur            |       3 |        120 | 2019-03-20 |
+|       4 | Harry | near IIT bombay,Mumbai          |       4 |         34 | 2012-11-01 |
+|       5 | Tom   | Nilgiri chowk ,Pune             |       5 |         34 | 2013-11-01 |
++---------+-------+---------------------------------+---------+------------+------------+
+
+
+****************************************************************ANS FOR 19th***********************************************************
+mysql> SELECT *
+    -> FROM gives_order as g,customer as c
+    -> WHERE g.cust_id = c.cust_id AND c.name='mohak';
++---------+------------+------------+---------+-------+---------------------------------+
+| cust_id | product_id | d          | cust_id | name  | addr                            |
++---------+------------+------------+---------+-------+---------------------------------+
+|       1 |          6 | 2019-12-12 |       1 | Mohak | near pict ,trimurti chowk ,Pune |
+|       1 |        120 | 2019-12-12 |       1 | Mohak | near pict ,trimurti chowk ,Pune |
++---------+------------+------------+---------+-------+---------------------------------+
+2 rows in set (0.00 sec)
+
+
+****************************************************************ANS FOR 20th***********************************************************
+****************************************************************ANS FOR 21th***********************************************************
+
+
+
+

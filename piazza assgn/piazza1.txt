@@ -1,0 +1,239 @@
+> use teacher
+switched to db teacher
+> show dbs
+Assi_13     0.000GB
+ORDER_db    0.000GB
+Orders_db   0.000GB
+admin       0.000GB
+config      0.000GB
+data        0.000GB
+local       0.000GB
+order       0.000GB
+ordb.TeacherCollec.insert({teacher_id:2,name:"Shreyash",addr:"Near bharti back gate",dept:"ENTC",salary:62000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.insert({teacher_id:3,name:"Manish",addr:"Shivajinagar",dept:"CS",salary:82000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.find().pretty()
+{
+	"_id" : ObjectId("5d91bf74722152283816f93e"),
+	"teacher_id" : 1,
+	"name" : "Mohak",
+	"addr" : "Near trimurti chowk",
+	"dept" : "IT",
+	"salary" : 52000
+}
+{
+	"_id" : ObjectId("5d91bfaa722152283816f93f"),
+	"teacher_id" : 2,
+	"name" : "Shreyash",
+	"addr" : "Near bharti back gate",
+	"dept" : "ENTC",
+	"salary" : 62000
+}
+{
+	"_id" : ObjectId("5d91bfdd722152283816f940"),
+	"teacher_id" : 2,
+	"name" : "Shreyash",
+	"addr" : "Near bharti back gate",
+	"dept" : "ENTC",
+	"salary" : 62000
+}
+{
+	"_id" : ObjectId("5d91c000722152283816f941"),
+	"teacher_id" : 3,
+	"name" : "Manish",
+	"addr" : "Shivajinagar",
+	"dept" : "CS",
+	"salary" : 82000
+}
+> db.TeacherCollec.remove({teacher_id:2})
+WriteResult({ "nRemoved" : 2 })
+> db.TeacherCollec.insert({teacher_id:2,name:"Shreyash",addr:"Near bharti back gate",dept:"ENTC",salary:62000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.insert({teacher_id:4,name:"James",addr:"Pune",dept:"ENTC",salary:25000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.insert({teacher_id:5,name:"Tony",addr:"Trimurti chowk",dept:"IT",salary:35000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.insert({teacher_id:6,name:"Steve",addr:"New york",dept:"CS",salary:35000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.insert({teacher_id:7,name:"Robert",addr:"New Delhi",dept:"IT",salary:40000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.insert({teacher_id:8,name:"Tom",addr:"New jersy",dept:"IT",salary:34000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.insert({teacher_id:9,name:"Vision",addr:"Berlin",dept:"CS",salary:24000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.insert({teacher_id:10,name:"Cris",addr:"Asgard",dept:"CS",salary:48000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.insert({teacher_id:11,name:"Ronin",addr:"China",dept:"ENTC",salary:41000})
+WriteResult({ "nInserted" : 1 })
+> db.TeacherCollec.find().pretty()
+{
+	"_id" : ObjectId("5d91bf74722152283816f93e"),
+	"teacher_id" : 1,
+	"name" : "Mohak",
+	"addr" : "Near trimurti chowk",
+	"dept" : "IT",
+	"salary" : 52000
+}
+{
+	"_id" : ObjectId("5d91c000722152283816f941"),
+	"teacher_id" : 3,
+	"name" : "Manish",
+	"addr" : "Shivajinagar",
+	"dept" : "CS",
+	"salary" : 82000
+}
+{
+	"_id" : ObjectId("5d91c05c722152283816f942"),
+	"teacher_id" : 2,
+	"name" : "Shreyash",
+	"addr" : "Near bharti back gate",
+	"dept" : "ENTC",
+	"salary" : 62000
+}
+{
+	"_id" : ObjectId("5d91c089722152283816f943"),
+	"teacher_id" : 4,
+	"name" : "James",
+	"addr" : "Pune",
+	"dept" : "ENTC",
+	"salary" : 25000
+}
+{
+	"_id" : ObjectId("5d91c0a9722152283816f944"),
+	"teacher_id" : 5,
+	"name" : "Tony",
+	"addr" : "Trimurti chowk",
+	"dept" : "IT",
+	"salary" : 35000
+}
+{
+	"_id" : ObjectId("5d91c0d6722152283816f945"),
+	"teacher_id" : 6,
+	"name" : "Steve",
+	"addr" : "New york",
+	"dept" : "CS",
+	"salary" : 35000
+}
+{
+	"_id" : ObjectId("5d91c0f3722152283816f946"),
+	"teacher_id" : 7,
+	"name" : "Robert",
+	"addr" : "New Delhi",
+	"dept" : "IT",
+	"salary" : 40000
+}
+{
+	"_id" : ObjectId("5d91c10d722152283816f947"),
+	"teacher_id" : 8,
+	"name" : "Tom",
+	"addr" : "New jersy",
+	"dept" : "IT",
+	"salary" : 34000
+}
+{
+	"_id" : ObjectId("5d91c128722152283816f948"),
+	"teacher_id" : 9,
+	"name" : "Vision",
+	"addr" : "Berlin",
+	"dept" : "CS",
+	"salary" : 24000
+}
+{
+	"_id" : ObjectId("5d91c140722152283816f949"),
+	"teacher_id" : 10,
+	"name" : "Cris",
+	"addr" : "Asgard",
+	"dept" : "CS",
+	"salary" : 48000
+}
+{
+	"_id" : ObjectId("5d91c160722152283816f94a"),
+	"teacher_id" : 11,
+	"name" : "Ronin",
+	"addr" : "China",
+	"dept" : "ENTC",
+	"salary" : 41000
+}
+> db.TeacherCollec.find({"addr":"Pune"}).pretty()
+{
+	"_id" : ObjectId("5d91c089722152283816f943"),
+	"teacher_id" : 4,
+	"name" : "James",
+	"addr" : "Pune",
+	"dept" : "ENTC",
+	"salary" : 25000
+}
+> db.TeacherCollec.find({"addr":"Pune","salary":25000}).pretty()
+{
+	"_id" : ObjectId("5d91c089722152283816f943"),
+	"teacher_id" : 4,
+	"name" : "James",
+	"addr" : "Pune",
+	"dept" : "ENTC",
+	"salary" : 25000
+}
+> db.TeacherCollec.insert({teacher_id:12,name:"Thor",addr:"Mumbai",dept:"ENTC",salary:25000})
+WriteResult({ "nInserted" : 1 })
+
+
+
+> db.TeacherCollec.find({$or:[{"addr":"Pune"},{"salary":25000}]}).pretty()
+{
+	"_id" : ObjectId("5d91c089722152283816f943"),
+	"teacher_id" : 4,
+	"name" : "James",
+	"addr" : "Pune",
+	"dept" : "ENTC",
+	"salary" : 25000
+}
+{
+	"_id" : ObjectId("5d91c200722152283816f94b"),
+	"teacher_id" : 12,
+	"name" : "Thor",
+	"addr" : "Mumbai",
+	"dept" : "ENTC",
+	"salary" : 25000
+}
+> 
+
+> db.TeacherCollec.find({$or:[{"addr":"Pune"},{"salary":25000}]}).pretty().count()
+2
+> db.TeacherCollec.find({"salary": gt 25000}).pretty().count()
+2019-09-30T14:24:54.078+0530 E QUERY    [js] SyntaxError: missing } after property list @(shell):1:36
+> db.TeacherCollec.find({"salary": {$gt: 25000}}).pretty().count()
+9
+> db.TeacherCollec.find({"salary": {$lt: 25000}}).pretty().count()
+1
+> db.TeacherCollec.find({"salary": {$lte: 25000}}).pretty().count()
+3
+
+
+> db.TeacherCollec.aggregate([{$group:{_id:"$teacher_id",avgAmount:{$avg : "$salary"}}}])
+{ "_id" : 12, "avgAmount" : 25000 }
+{ "_id" : 11, "avgAmount" : 41000 }
+{ "_id" : 4, "avgAmount" : 25000 }
+{ "_id" : 2, "avgAmount" : 62000 }
+{ "_id" : 3, "avgAmount" : 82000 }
+{ "_id" : 1, "avgAmount" : 52000 }
+{ "_id" : 7, "avgAmount" : 40000 }
+{ "_id" : 5, "avgAmount" : 35000 }
+{ "_id" : 6, "avgAmount" : 35000 }
+{ "_id" : 8, "avgAmount" : 34000 }
+{ "_id" : 9, "avgAmount" : 24000 }
+{ "_id" : 10, "avgAmount" : 48000 }
+
+> db.TeacherCollec.aggregate([{$group:{_id:null,avgAmount:{$avg : "$salary"}}}])
+
+{ "_id" : null, "avgAmount" : 41916.666666666664 }
+
+> db.TeacherCollec.aggregate({$group :{_id:"$dept",avgAmount:{$avg :"$salary"}}})
+{ "_id" : "ENTC", "avgAmount" : 38250 }
+{ "_id" : "CS", "avgAmount" : 47250 }
+{ "_id" : "IT", "avgAmount" : 40250 }
+
+
+
+
+
+

@@ -1,0 +1,53 @@
+mysql> desc transcation;
++-----------+------------+------+-----+---------+----------------+
+| Field     | Type       | Null | Key | Default | Extra          |
++-----------+------------+------+-----+---------+----------------+
+| tid       | int(11)    | NO   | PRI | NULL    | auto_increment |
+| roomid    | int(11)    | YES  | MUL | NULL    |                |
+| cid       | int(11)    | YES  | MUL | NULL    |                |
+| rid       | int(11)    | YES  | MUL | NULL    |                |
+| rate      | int(11)    | NO   |     | NULL    |                |
+| cash_card | varchar(5) | NO   |     | NULL    |                |
++-----------+------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+
+mysql> desc recipitionist;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rid    | int(11)     | NO   | PRI | NULL    |       |
+| rname  | varchar(20) | NO   |     | NULL    |       |
+| rphone | int(11)     | NO   |     | NULL    |       |
+| rctiy  | varchar(10) | NO   |     | NULL    |       |
+| rmail  | varchar(25) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+
+mysql> desc customer;
++--------+-------------+------+-----+---------+----------------+
+| Field  | Type        | Null | Key | Default | Extra          |
++--------+-------------+------+-----+---------+----------------+
+| cid    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| cname  | varchar(20) | NO   |     | NULL    |                |
+| cphone | int(11)     | NO   |     | NULL    |                |
+| cctiy  | varchar(10) | NO   |     | NULL    |                |
+| cmail  | varchar(25) | NO   |     | NULL    |                |
++--------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> desc booking;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| roomid   | int(11)     | NO   | PRI | NULL    |       |
+| cid      | int(11)     | YES  | MUL | NULL    |       |
+| rid      | int(11)     | YES  | MUL | NULL    |       |
+| AC_NON   | varchar(10) | NO   |     | NULL    |       |
+| discount | int(5)      | YES  |     | NULL    |       |
+| no_room  | int(10)     | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+

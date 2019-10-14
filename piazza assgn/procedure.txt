@@ -1,0 +1,175 @@
+mysql> use exe4
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_exe4 |
++----------------+
+| catalog        |
+| parts          |
+| sup            |
+| suppliers      |
++----------------+
+4 rows in set (0.00 sec)
+
+mysql> select *
+    -> from catalog;
++------+------+------+
+| sid  | pid  | cost |
++------+------+------+
+|    1 |    3 |  900 |
+|    2 |    5 |  120 |
+|    3 |    1 |  800 |
+|    4 |    4 |  789 |
+|   10 |    6 |   90 |
+|   13 |    7 |  665 |
+|   12 |   12 | 5647 |
+|    1 |    6 |  900 |
+|    3 |    8 |  232 |
+|    8 |   11 |  902 |
+|   12 |    4 |  982 |
++------+------+------+
+11 rows in set (0.03 sec)
+
+mysql> DELIMITER $
+mysql> CREATE PROCEDURE func()
+    -> BEGIN
+    -> SELECT *
+    -> FROM catalog;
+    -> END $
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CALL func();
+    -> $
++------+------+------+
+| sid  | pid  | cost |
++------+------+------+
+|    1 |    3 |  900 |
+|    2 |    5 |  120 |
+|    3 |    1 |  800 |
+|    4 |    4 |  789 |
+|   10 |    6 |   90 |
+|   13 |    7 |  665 |
+|   12 |   12 | 5647 |
+|    1 |    6 |  900 |
+|    3 |    8 |  232 |
+|    8 |   11 |  902 |
+|   12 |    4 |  982 |
++------+------+------+
+11 rows in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> DELIMITER ;
+mysql> DELIMITER $
+mysql> CREATE PROCEDURE pass(IN x INT)
+    -> BEGIN
+    -> SELECT *
+    -> FROM catalog
+    -> WHERE sid > x;
+    -> END$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELIMITER ;
+mysql> CALL pass(3);
++------+------+------+
+| sid  | pid  | cost |
++------+------+------+
+|    4 |    4 |  789 |
+|   10 |    6 |   90 |
+|   13 |    7 |  665 |
+|   12 |   12 | 5647 |
+|    8 |   11 |  902 |
+|   12 |    4 |  982 |
++------+------+------+
+6 rows in set (0.01 sec)
+
+mysql> DELIMITER $
+mysql> CREATE PROCEDURE IfElse(IN x INT) BEGIN IF x< 10 THEN  SELECT * FROM catalog; ELSE SELECT SUM(cost) FROM catalog; END IF; END$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CALL IfElse(5)$
++------+------+------+
+| sid  | pid  | cost |
++------+------+------+
+|    1 |    3 |  900 |
+|    2 |    5 |  120 |
+|    3 |    1 |  800 |
+|    4 |    4 |  789 |
+|   10 |    6 |   90 |
+|   13 |    7 |  665 |
+|   12 |   12 | 5647 |
+|    1 |    6 |  900 |
+|    3 |    8 |  232 |
+|    8 |   11 |  902 |
+|   12 |    4 |  982 |
++------+------+------+
+11 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELIMITER ;
+mysql> CALL IfElse(11);
++-----------+
+| SUM(cost) |
++-----------+
+|     12027 |
++-----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE PROCEDURE nested(IN c INT,OUT t INT)
+    -> BEGIN
+    ->  IF c = 1 THEN
+    ->   SET t = 1;
+    ->  ELSEIF c = 2 THEN
+    ->    SET t = 2;
+    ->  ELSE 
+    ->    SET t = 3;
+    -> END IF;
+    -> END$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CALL nested(2,@v)$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> DELIMITER ;
+mysql> SELECT @v;
++------+
+| @v   |
++------+
+|    2 |
++------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Query OK, 0 rows affected (0.01 sec)
+

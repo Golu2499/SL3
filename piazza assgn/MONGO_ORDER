@@ -1,0 +1,336 @@
+> db.orders.find()
+{ "_id" : ObjectId("5d85e26655b3d6ba8a5994c9"), "order_id" : 1, "ordered_by" : { "user_id" : 1, "user_name" : "mohak" }, "products_ordered" : { "product_id" : 2, "product_name" : "computer" } }
+> db.orders.find().pretty()
+{
+	"_id" : ObjectId("5d85e26655b3d6ba8a5994c9"),
+	"order_id" : 1,
+	"ordered_by" : {
+		"user_id" : 1,
+		"user_name" : "mohak"
+	},
+	"products_ordered" : {
+		"product_id" : 2,
+		"product_name" : "computer"
+	}
+}
+> db.orders.insert({order_id:6,ordered_by:{user_id:7,user_name:"james"},products_ordered:{product_id:8,product_name:"air purifier"}})
+WriteResult({ "nInserted" : 1 })
+> db.orders.insert({order_id:4,ordered_by:{user_id:9,user_name:"james"},products_ordered:{product_id:9,product_name:"water purifier"}})
+WriteResult({ "nInserted" : 1 })
+> db.orders.insert({order_id:4,ordered_by:{user_id:9,user_name:"james"},products_ordered:{product_id:9,product_name:"water purifier"}})
+WriteResult({ "nInserted" : 1 })
+> db.orders.find().pretty()
+{
+	"_id" : ObjectId("5d85e26655b3d6ba8a5994c9"),
+	"order_id" : 1,
+	"ordered_by" : {
+		"user_id" : 1,
+		"user_name" : "mohak"
+	},
+	"products_ordered" : {
+		"product_id" : 2,
+		"product_name" : "computer"
+	}
+}
+{
+	"_id" : ObjectId("5d85e48c55b3d6ba8a5994ca"),
+	"order_id" : 2,
+	"ordered_by" : {
+		"user_id" : 2,
+		"user_name" : "golu"
+	},
+	"products_ordered" : {
+		"product_id" : 3,
+		"product_name" : "Laptop"
+	}
+}
+{
+	"_id" : ObjectId("5d85e52155b3d6ba8a5994cb"),
+	"order_id" : 6,
+	"ordered_by" : {
+		"user_id" : 7,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 8,
+		"product_name" : "air purifier"
+	}
+}
+{
+	"_id" : ObjectId("5d85e53b55b3d6ba8a5994cc"),
+	"order_id" : 4,
+	"ordered_by" : {
+		"user_id" : 9,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 9,
+		"product_name" : "water purifier"
+	}
+}
+{
+	"_id" : ObjectId("5d85e53f55b3d6ba8a5994cd"),
+	"order_id" : 4,
+	"ordered_by" : {
+		"user_id" : 9,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 9,
+		"product_name" : "water purifier"
+	}
+}
+
+					// SORT IN ASCENDING ORDER OF ORDER ID
+> db.orders.find().sort({order_id:1}).pretty()
+{
+	"_id" : ObjectId("5d85e26655b3d6ba8a5994c9"),
+	"order_id" : 1,
+	"ordered_by" : {
+		"user_id" : 1,
+		"user_name" : "mohak"
+	},
+	"products_ordered" : {
+		"product_id" : 2,
+		"product_name" : "computer"
+	}
+}
+{
+	"_id" : ObjectId("5d85e48c55b3d6ba8a5994ca"),
+	"order_id" : 2,
+	"ordered_by" : {
+		"user_id" : 2,
+		"user_name" : "golu"
+	},
+	"products_ordered" : {
+		"product_id" : 3,
+		"product_name" : "Laptop"
+	}
+}
+{
+	"_id" : ObjectId("5d85ead555b3d6ba8a5994d5"),
+	"order_id" : 4,
+	"ordered_by" : {
+		"user_id" : 9,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 9,
+		"product_name" : "water purifier"
+	}
+}
+{
+	"_id" : ObjectId("5d85e52155b3d6ba8a5994cb"),
+	"order_id" : 6,
+	"ordered_by" : {
+		"user_id" : 7,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 8,
+		"product_name" : "air purifier"
+	}
+}
+> 
+
+
+		// SORTING IN DESCENDING ORDER OF ORDER ID
+> db.orders.find().sort({order_id:-1}).pretty()
+{
+	"_id" : ObjectId("5d85e52155b3d6ba8a5994cb"),
+	"order_id" : 6,
+	"ordered_by" : {
+		"user_id" : 7,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 8,
+		"product_name" : "air purifier"
+	}
+}
+{
+	"_id" : ObjectId("5d85ead555b3d6ba8a5994d5"),
+	"order_id" : 4,
+	"ordered_by" : {
+		"user_id" : 9,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 9,
+		"product_name" : "water purifier"
+	}
+}
+{
+	"_id" : ObjectId("5d85e48c55b3d6ba8a5994ca"),
+	"order_id" : 2,
+	"ordered_by" : {
+		"user_id" : 2,
+		"user_name" : "golu"
+	},
+	"products_ordered" : {
+		"product_id" : 3,
+		"product_name" : "Laptop"
+	}
+}
+{
+	"_id" : ObjectId("5d85e26655b3d6ba8a5994c9"),
+	"order_id" : 1,
+	"ordered_by" : {
+		"user_id" : 1,
+		"user_name" : "mohak"
+	},
+	"products_ordered" : {
+		"product_id" : 2,
+		"product_name" : "computer"
+	}
+}
+
+		// SKIPPING THE FIRST N DOCUMENTS	
+	
+> db.orders.find().skip(2).pretty()
+{
+	"_id" : ObjectId("5d85e52155b3d6ba8a5994cb"),
+	"order_id" : 6,
+	"ordered_by" : {
+		"user_id" : 7,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 8,
+		"product_name" : "air purifier"
+	}
+}
+{
+	"_id" : ObjectId("5d85ead555b3d6ba8a5994d5"),
+	"order_id" : 4,
+	"ordered_by" : {
+		"user_id" : 9,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 9,
+		"product_name" : "water purifier"
+	}
+}
+
+> db.orders.find({order_id:4}).pretty()
+{
+	"_id" : ObjectId("5d85ead555b3d6ba8a5994d5"),
+	"order_id" : 4,
+	"ordered_by" : {
+		"user_id" : 9,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 9,
+		"product_name" : "water purifier"
+	}
+}
+
+
+		// USING IN OPERATOR 
+> db.orders.find({order_id:{$in:[5,2,1]}}).pretty()
+{
+	"_id" : ObjectId("5d85e26655b3d6ba8a5994c9"),
+	"order_id" : 1,
+	"ordered_by" : {
+		"user_id" : 1,
+		"user_name" : "mohak"
+	},
+	"products_ordered" : {
+		"product_id" : 2,
+		"product_name" : "computer"
+	}
+}
+{
+	"_id" : ObjectId("5d85e48c55b3d6ba8a5994ca"),
+	"order_id" : 2,
+	"ordered_by" : {
+		"user_id" : 2,
+		"user_name" : "golu"
+	},
+	"products_ordered" : {
+		"product_id" : 3,
+		"product_name" : "Laptop"
+	}
+}
+
+		// USING FIND ONE 
+> db.orders.findOne()
+{
+	"_id" : ObjectId("5d85e26655b3d6ba8a5994c9"),
+	"order_id" : 1,
+	"ordered_by" : {
+		"user_id" : 1,
+		"user_name" : "mohak"
+	},
+	"products_ordered" : {
+		"product_id" : 2,
+		"product_name" : "computer"
+	}
+}
+
+
+> db.orders.find().pretty();
+{
+	"_id" : ObjectId("5d85e26655b3d6ba8a5994c9"),
+	"order_id" : 1,
+	"ordered_by" : {
+		"user_id" : 1,
+		"user_name" : "mohak"
+	},
+	"products_ordered" : {
+		"product_id" : 2,
+		"product_name" : "computer"
+	}
+}
+{
+	"_id" : ObjectId("5d85e48c55b3d6ba8a5994ca"),
+	"order_id" : 2,
+	"ordered_by" : {
+		"user_id" : 2,
+		"user_name" : "golu"
+	},
+	"products_ordered" : {
+		"product_id" : 3,
+		"product_name" : "Laptop"
+	}
+}
+{
+	"_id" : ObjectId("5d85ead555b3d6ba8a5994d5"),
+	"order_id" : 4,
+	"ordered_by" : {
+		"user_id" : 9,
+		"user_name" : "james"
+	},
+	"products_ordered" : {
+		"product_id" : 9,
+		"product_name" : "water purifier"
+	}
+}
+{
+	"_id" : ObjectId("5d91d558722152283816f94e"),
+	"order_id" : 7,
+	"ordered_by" : {
+		"user_id" : 7,
+		"user_name" : "james"
+	},
+	"products_ordered" : [
+		{
+			"product_id" : 8,
+			"product_name" : "water purifier"
+		},
+		{
+			"product_id" : 9,
+			"product_name" : "air purifier"
+		}
+	]
+}
+
+
+
+
+
+
+
+

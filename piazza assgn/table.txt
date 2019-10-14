@@ -1,0 +1,34 @@
+mysql> SELECT * FROM artist;
++--------+------------+------+------------+
+| name   | birthplace | age  | group_name |
++--------+------------+------+------------+
+| Aang   | tokyo      |   20 | Creators   |
+| Light  | mexico     |   20 | Spy        |
+| Luffy  | New York   |   21 | Spy        |
+| Manish | Bombay     |   25 | Spy        |
+| Mohak  | Chandrapur |   19 | Creators   |
+| Naruto | Leaf       |   19 | Creators   |
+| Sagar  | Delhi      |   26 | Spy        |
+| Sasuke | kolkata    |   21 | Creators   |
+| Zuko   | Paris      |   21 | Creators   |
++--------+------------+------+------------+
+
+mysql> SELECT * FROM artwork_group;
++----------+--------------------------------+
+| name     | description                    |
++----------+--------------------------------+
+| Creators | we express our feelings in art |
+| Spy      | we know everything             |
++----------+--------------------------------+
+2 rows in set (0.01 sec)
+
+
+mysql> SELECT * from artwork;                                                   +-------------+-------+----------+
+| title       | price | type     |
++-------------+-------+----------+
+| Monalisa    |  1000 | painting |
+| The Suicide |   300 | painting |
+| tile work   |   500 | painting |
++-------------+-------+----------+
+3 rows in set (0.00 sec)
+

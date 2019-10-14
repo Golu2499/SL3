@@ -1,0 +1,649 @@
+pict@DBMSLAB-A3-305-19:~$ mongo
+MongoDB shell version v4.0.12
+connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("2095ca2e-fa40-4026-901d-7eabd2bd5202") }
+MongoDB server version: 4.0.12
+Server has startup warnings: 
+2019-09-16T14:01:33.108+0530 I STORAGE  [initandlisten] 
+2019-09-16T14:01:33.108+0530 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-09-16T14:01:33.108+0530 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-09-16T14:01:36.032+0530 I CONTROL  [initandlisten] 
+2019-09-16T14:01:36.032+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-09-16T14:01:36.032+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-09-16T14:01:36.032+0530 I CONTROL  [initandlisten] 
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> show dbs
+admin       0.000GB
+config      0.000GB
+local       0.000GB
+student_db  0.000GB
+> use order
+switched to db order
+> show dbs;
+admin       0.000GB
+config      0.000GB
+local       0.000GB
+student_db  0.000GB
+
+
+> db.category.insert({cat_id:1,cat_name:"Mobile"});
+WriteResult({ "nInserted" : 1 })
+> show dbs;
+admin       0.000GB
+config      0.000GB
+local       0.000GB
+order       0.000GB
+student_db  0.000GB
+
+
+
+> db.category.insert({cat_id:2,cat_name:"Laptop"});
+WriteResult({ "nInserted" : 1 })
+
+		// display
+
+> db.category.find();
+{ "_id" : ObjectId("5d7f4f7961e8225b99ad02d8"), "cat_id" : 1, "cat_name" : "Mobile" }
+{ "_id" : ObjectId("5d7f502f61e8225b99ad02d9"), "cat_id" : 2, "cat_name" : "Laptop" }
+
+		// display properly
+
+> db.category.find().pretty();
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+
+> db.category.insert({cat_id:0,cat_name:"Books"},{cat_id:4,cat_name:"sports"});
+WriteResult({ "nInserted" : 1 })
+
+> db.category.find().pretty();
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+> db.category.insert({cat_id:4,cat_name:"sports"});
+WriteResult({ "nInserted" : 1 })
+> db.category.insert({cat_id:10,cat_name:"earphones"});
+WriteResult({ "nInserted" : 1 })
+> db.category.insert({cat_id:7,cat_name:"music"});
+WriteResult({ "nInserted" : 1 })
+
+
+> db.category.find().pretty();
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+
+		//	DISPLAYING IN SORTED ORDER OF CATEGORY ID
+
+> db.category.find().sort({cat_id:1}).pretty();
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+
+		// 1 FOR ASCENDING ORDER
+		// -1 FOR DESCENDING ORDER
+> db.category.find().sort({cat_id:-11}).pretty();
+Error: error: {
+	"ok" : 0,
+	"errmsg" : "bad sort specification",
+	"code" : 2,
+	"codeName" : "BadValue"
+}
+
+		//	DESCENDING ORDER
+
+> db.category.find().sort({cat_id:-1}).pretty();
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+
+		// SKIPPING FIRST N RECORDS
+
+> db.category.find().skip(2).pretty();
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+
+
+> db.category.find().pretty();
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+> db.category.find().skip(10).pretty();
+> db.category.find().skip(0).pretty();
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+
+> db.category.find().skip(4).pretty();
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+
+> db.category.find().sort({cat_id:1}).skip(4).pretty();
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+
+> db.category.find().sort({cat_id:1}).skip(2).pretty();
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+
+> db.category.find().sort({cat_id:1}).limit(3).pretty();
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+
+> db.category.find({},{_id:0}).pretty();
+{ "cat_id" : 1, "cat_name" : "Mobile" }
+{ "cat_id" : 2, "cat_name" : "Laptop" }
+{ "cat_id" : 0, "cat_name" : "Books" }
+{ "cat_id" : 4, "cat_name" : "sports" }
+{ "cat_id" : 10, "cat_name" : "earphones" }
+{ "cat_id" : 7, "cat_name" : "music" }
+
+> db.category.find({cat_id:{$gt:2}},{_id:0}).pretty();
+{ "cat_id" : 4, "cat_name" : "sports" }
+{ "cat_id" : 10, "cat_name" : "earphones" }
+{ "cat_id" : 7, "cat_name" : "music" }
+
+> db.category.count();
+6
+
+> db.category.count({cat_id:4});
+1
+
+> db.category.count({cat_name:"mohak"});
+0 
+
+//			FIND BY CONDITIONS
+> db.category.find({"cat_id":4}).pretty();
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+
+> db.category.find({"cat_id":{$lte:7}}).pretty();
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+> db.category.find({"cat_id":{$lte:7}}).pretty().sort({cat_id:1});
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+
+
+	/// USING AND IN CONDITIONS 
+
+> db.category.find({$and:[{"cat_id" : 4},{"cat_name":"sports"}]}).pretty();
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+
+		// USING OR IN CONDITIONS
+
+> db.category.find({$or:[{"cat_id" : 7},{"cat_name":"sports"}]}).pretty();
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+
+		// USING AND AND OR TOGETHER
+
+> db.category.find({"cat_name":"music",$or:[{"cat_id" : 7},{"cat_name":"sports"}]}).pretty();
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "music"
+}
+
+		// UPDATE QUERY IN MONGO
+
+> db.category.update({"cat_name":"music"},{$set:{"cat_name":"study"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.category.find({"cat_id":7}).pretty();
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "study"
+}
+
+
+			// SAVE QUERY
+
+> db.category.save({"_id":ObjectId("5d83471922e17122d4807c15"),"cat_id":9,"cat_name":"music"});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.category.find().pretty();
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "study"
+}
+{
+	"_id" : ObjectId("5d83461422e17122d4807c14"),
+	"cat_id" : 8,
+	"cat_name" : "dance"
+}
+{
+	"_id" : ObjectId("5d83471922e17122d4807c15"),
+	"cat_id" : 9,
+	"cat_name" : "music"
+}
+
+				// REMOVE DOCUMENT
+> db.category.remove({"cat_id":8});
+WriteResult({ "nRemoved" : 1 })
+> db.category.find().pretty();
+{
+	"_id" : ObjectId("5d7f4f7961e8225b99ad02d8"),
+	"cat_id" : 1,
+	"cat_name" : "Mobile"
+}
+{
+	"_id" : ObjectId("5d7f502f61e8225b99ad02d9"),
+	"cat_id" : 2,
+	"cat_name" : "Laptop"
+}
+{
+	"_id" : ObjectId("5d7f50c261e8225b99ad02da"),
+	"cat_id" : 0,
+	"cat_name" : "Books"
+}
+{
+	"_id" : ObjectId("5d7f517861e8225b99ad02db"),
+	"cat_id" : 4,
+	"cat_name" : "sports"
+}
+{
+	"_id" : ObjectId("5d7f51dd61e8225b99ad02dc"),
+	"cat_id" : 10,
+	"cat_name" : "earphones"
+}
+{
+	"_id" : ObjectId("5d7f520161e8225b99ad02dd"),
+	"cat_id" : 7,
+	"cat_name" : "study"
+}
+{
+	"_id" : ObjectId("5d83471922e17122d4807c15"),
+	"cat_id" : 9,
+	"cat_name" : "music"
+}
+
+
+			// PROJECTION (SHOWING ONLY REQUIRED FEILDS OF DOCUMENT)
+> db.category.find({},{"cat_id":1,_id:0});
+{ "cat_id" : 1 }
+{ "cat_id" : 2 }
+{ "cat_id" : 0 }
+{ "cat_id" : 4 }
+{ "cat_id" : 10 }
+{ "cat_id" : 7 }
+{ "cat_id" : 9 }
+> db.category.find({},{"cat_id":1,"cat_name":1,_id:0});
+{ "cat_id" : 1, "cat_name" : "Mobile" }
+{ "cat_id" : 2, "cat_name" : "Laptop" }
+{ "cat_id" : 0, "cat_name" : "Books" }
+{ "cat_id" : 4, "cat_name" : "sports" }
+{ "cat_id" : 10, "cat_name" : "earphones" }
+{ "cat_id" : 7, "cat_name" : "study" }
+{ "cat_id" : 9, "cat_name" : "music" }
+
+		// INDEXES 
+> db.category.ensureIndex({"cat_name":1});
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+	// TWO INDEXES PRESENT 
+	// 1. _id (WHICH IS PRE-DEFINED)
+	// 2. cat_name(WHICH I DEFINED)
+> db.category.getIndexes();
+[
+	{
+		"v" : 2,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_",
+		"ns" : "order.category"
+	},
+	{
+		"v" : 2,
+		"key" : {
+			"cat_name" : 1
+		},
+		"name" : "cat_name_1",
+		"ns" : "order.category"
+	}
+]
+> 
+
+	// DROP INDEXES 
+	// ONLY USER DEFINED INDEXES WILL BE DROPPED 
+	// _id IS DEFAULT IT WON'T GET DROPPED
+> db.category.dropIndexes()
+{
+	"nIndexesWas" : 2,
+	"msg" : "non-_id indexes dropped for collection",
+	"ok" : 1
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

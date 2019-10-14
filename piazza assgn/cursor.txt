@@ -1,0 +1,54 @@
+	/// creating a cursor
+
+mysql> CREATE PROCEDURE cursorPro()
+    -> BEGIN
+    -> DECLARE var VARCHAR(200) DEFAULT "";
+    -> DECLARE A CURSOR FOR SELECT sname FROM suppliers;
+    -> OPEN A;
+    -> FETCH A INTO var;
+    -> SELECT var;
+    -> CLOSE A;
+    -> END$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CALL cursorPro()$
++-------------+
+| var         |
++-------------+
+| Manish Shah |
++-------------+
+1 row in set (0.00 sec)
+
+				///// LOOP FOR CURSOR
+mysql> CREATE PROCEDURE cursorPro()
+    -> BEGIN
+    -> DECLARE finished INTEGER DEFAULT 0;
+    -> DECLARE names VARCHAR(20) DEFAULT "";
+    -> DECLARE list_name VARCHAR(4000) DEFAULT "";
+    -> DECLARE cur CURSOR FOR SELECT sname FROM suppliers;
+    -> DECLARE CONTINUE HANDLER
+    -> FOR NOT FOUND SET finished = 1;
+    -> OPEN cur;
+    -> sname :LOOP
+    -> FETCH cur INTO names;
+    -> IF finished = 1 THEN 
+    -> LEAVE sname;
+    -> END IF;
+    -> SET list_name = CONCAT(names,',',list_name);
+    -> END LOOP sname;
+    -> CLOSE cur;
+    -> SELECT list_name;
+    -> END $
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> CALL cursorPro()$
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| list_name                                                                                                                                                                                  |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Romero y tomillo,Ricardo Adocicados,Reggiani Caseifici,Rancho Grande,Maison Dewey,Hanari Carnes,Galeria del gastr,Franchi S.p.A,Ernst Handel,Shubham bhand,charlie,Alrik Bush,Manish Shah, |
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
